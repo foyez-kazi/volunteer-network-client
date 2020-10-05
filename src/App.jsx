@@ -6,7 +6,10 @@ import { NotFound } from './components/NotFound'
 import { Home } from './components/Home'
 import { Login } from './components/Login'
 import { PrivateRoute } from './components/PrivateRoute'
-import { PrivateComponent } from './components/PrivateComponent'
+import { VolunteerRegister } from './components/VolunteerRegister'
+import { Profile } from './components/Profile'
+import { VolunteerList } from './components/VolunteerList'
+import { CreateEvent } from './components/CreateEvent'
 
 const App = () => {
   return (
@@ -15,9 +18,18 @@ const App = () => {
         <Route path="/login">
           <Login />
         </Route>
-        <PrivateRoute path="/private">
-          <PrivateComponent />
-        </PrivateRoute>
+        <Route path="/volunteer-register">
+          <VolunteerRegister />
+        </Route>
+        <Route path="/profile">
+          <Profile />
+        </Route>
+        <Route path="/volunteer-list">
+          <VolunteerList />
+        </Route>
+        <Route path="/create-event">
+          <CreateEvent />
+        </Route>
         <Route exact path="/">
           <Home />
         </Route>
