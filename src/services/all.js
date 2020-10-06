@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:3001/api'
+const baseUrl = 'https://foyez-volunteer-network.herokuapp.com/api'
 
 const getEvents = () => {
   const request = axios.get(`${baseUrl}/events`)
