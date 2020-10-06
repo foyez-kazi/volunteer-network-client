@@ -1,10 +1,9 @@
 import { Container, Grid, makeStyles } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-
+import allService from '../services/all'
 import { Card } from './Card'
 import { Header } from './Header'
-import { data } from '../data'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,23 +14,30 @@ const useStyles = makeStyles((theme) => ({
 
 export const Home = () => {
   const classes = useStyles()
+  const [events, setEvents] = useState([])
+
+  useEffect(() => {
+    allService.getEvents().then((events) => {
+      setEvents(events)
+    })
+  }, [])
 
   return (
     <Container maxWidth="lg">
       <Header />
       <main className={classes.root}>
         <Grid container spacing={3}>
-          {data.map((item) => (
-            <Grid item xs={3} key={item.id}>
-              <Link to={`volunteer-register?event=${item.title}`}>
-                <Card item={item} />
+          {events.map((event) => (
+            <Grid item xs={3} key={event._id}>
+              <Link
+                to={`volunteer-register?event=${event.eventTitle}&bannerUrl=${event.banner}`}
+              >
+                <Card item={event} />
               </Link>
             </Grid>
           ))}
         </Grid>
       </main>
-
-      {/* <Link to="/private">Go to private Component</Link> */}
     </Container>
   )
 }

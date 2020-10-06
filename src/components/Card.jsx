@@ -1,8 +1,6 @@
 import { makeStyles, Paper } from '@material-ui/core'
 import React from 'react'
 
-import Child from '../assets/images/childSupport.png'
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -40,12 +38,12 @@ export const Card = ({ item }) => {
 
   return (
     <Paper className={classes.paper}>
-      <img className={classes.img} src={Child} alt="test" />
+      <img className={classes.img} src={item.banner} alt="test" />
       <div
         className={classes.paperTextBox}
         style={{ backgroundColor: 'green' }}
       >
-        <div className={classes.paperText}>{item.title}</div>
+        <div className={classes.paperText}>{item.eventTitle}</div>
       </div>
     </Paper>
   )

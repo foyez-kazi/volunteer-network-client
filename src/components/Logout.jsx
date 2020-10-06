@@ -1,3 +1,4 @@
+import { Button } from '@material-ui/core'
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { UserContext } from '../context/UserProvider'
@@ -11,5 +12,5 @@ export const Logout = () => {
     history.replace('/')
   }
 
-  return <button onClick={handleLogout}>Logout</button>
+  return <Button onClick={handleLogout}>Logout</Button>
 }

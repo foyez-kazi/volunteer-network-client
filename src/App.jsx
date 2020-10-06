@@ -18,18 +18,18 @@ const App = () => {
         <Route path="/login">
           <Login />
         </Route>
-        <Route path="/volunteer-register">
+        <PrivateRoute path="/volunteer-register">
           <VolunteerRegister />
-        </Route>
-        <Route path="/profile">
+        </PrivateRoute>
+        <PrivateRoute path="/profile">
           <Profile />
-        </Route>
-        <Route path="/volunteer-list">
+        </PrivateRoute>
+        <PrivateRoute path="/volunteer-list">
           <VolunteerList />
-        </Route>
-        <Route path="/create-event">
+        </PrivateRoute>
+        <PrivateRoute path="/create-event">
           <CreateEvent />
-        </Route>
+        </PrivateRoute>
         <Route exact path="/">
           <Home />
         </Route>

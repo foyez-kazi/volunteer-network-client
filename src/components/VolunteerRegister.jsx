@@ -7,8 +7,10 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core'
-import React, { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { UserContext } from '../context/UserProvider'
+import { useHistory, useLocation } from 'react-router-dom'
+import allService from '../services/all'
 
 const useStyles = makeStyles({
   root: {
@@ -26,16 +28,30 @@ const useStyles = makeStyles({
 
 export const VolunteerRegister = () => {
   const classes = useStyles()
+  const { currentUser } = useContext(UserContext)
   const [volunteer, setVolunteer] = useState({
     fullName: '',
-    usernameOrEmail: '',
+    email: '',
     date: '',
     description: '',
+    volunteerList: '',
   })
+  const history = useHistory()
   const location = useLocation()
-
   const params = new URLSearchParams(location.search)
   const event = params.get('event')
+  const bannerUrl = params.get('bannerUrl')
+
+  useEffect(() => {
+    if (currentUser) {
+      setVolunteer({
+        ...volunteer,
+        fullName: currentUser.displayName,
+        email: currentUser.email,
+        volunteerList: event,
+      })
+    }
+  }, [currentUser])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -45,7 +61,11 @@ export const VolunteerRegister = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    console.log({ ...volunteer, event })
+    allService
+      .createVolunteer({ ...volunteer, bannerUrl })
+      .then((savedVolunteer) => {
+        history.replace('/profile')
+      })
   }
 
   return (
@@ -59,24 +79,35 @@ export const VolunteerRegister = () => {
             fullWidth
             label="Full Name"
             name="fullName"
+            value={volunteer.fullName}
             onChange={handleChange}
           />
           <TextField
             fullWidth
-            label="Username or Email"
-            name="usernameOrEmail"
+            label="Email"
+            name="email"
+            value={volunteer.email}
             onChange={handleChange}
           />
           <TextField
             fullWidth
             label="Date"
             name="date"
+            value={volunteer.date}
             onChange={handleChange}
           />
           <TextField
             fullWidth
             label="Description"
             name="description"
+            value={volunteer.description}
+            onChange={handleChange}
+          />
+          <TextField
+            fullWidth
+            label="Event Name"
+            name="volunteerList"
+            value={volunteer.volunteerList}
             onChange={handleChange}
           />
         </CardContent>
